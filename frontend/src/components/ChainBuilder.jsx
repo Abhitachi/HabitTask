@@ -9,10 +9,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { ArrowDown, Save, Trash2, Plus, X } from 'lucide-react';
 import HabitCard from './HabitCard';
 
-const ChainBuilder = ({ categories, onSaveStack, onClearStack }) => {
+const ChainBuilder = ({ categories, onSaveStack, onClearStack, onCreateHabit }) => {
   const [stackName, setStackName] = useState('');
   const [currentStack, setCurrentStack] = useState([]);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [showAddTaskForm, setShowAddTaskForm] = useState(false);
+  const [newTask, setNewTask] = useState({
+    name: '',
+    category: '',
+    time: '',
+    description: ''
+  });
 
   const handleDragOver = (e) => {
     e.preventDefault();
