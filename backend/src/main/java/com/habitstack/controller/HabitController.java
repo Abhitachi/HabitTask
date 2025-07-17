@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "https://chain-habits.preview.emergentagent.com")
 @RequestMapping("/habits")
 @Validated
-@CrossOrigin(origins = "*")
 public class HabitController {
     
     @Autowired
@@ -41,12 +41,10 @@ public class HabitController {
         return ResponseEntity.ok(habits);
     }
     
-    @GetMapping("/{id}")
-    public ResponseEntity<Habit> getHabitById(@PathVariable String id) {
-        Optional<Habit> habit = habitService.getHabitById(id);
-        return habit.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+@GetMapping("/{id}")
+public Optional<Habit> getHabitById(@PathVariable String id) {
+    return habitRepository.findById(id);
+}
     
     @PostMapping
     public ResponseEntity<Habit> createHabit(@Valid @RequestBody Habit habit) {

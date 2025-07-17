@@ -13,9 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "https://chain-habits.preview.emergentagent.com")
 @RequestMapping("/progress")
 @Validated
-@CrossOrigin(origins = "*")
+
 public class ProgressDataController {
     
     @Autowired

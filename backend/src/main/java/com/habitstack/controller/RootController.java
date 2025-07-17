@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "https://chain-habits.preview.emergentagent.com")
 @RequestMapping("/")
-@CrossOrigin(origins = "*")
 public class RootController {
     
     @GetMapping

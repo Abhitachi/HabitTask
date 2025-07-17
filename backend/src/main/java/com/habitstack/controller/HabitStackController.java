@@ -14,9 +14,9 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "https://chain-habits.preview.emergentagent.com")
 @RequestMapping("/stacks")
 @Validated
-@CrossOrigin(origins = "*")
 public class HabitStackController {
     
     @Autowired

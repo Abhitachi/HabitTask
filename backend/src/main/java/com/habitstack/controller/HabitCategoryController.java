@@ -14,9 +14,10 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "https://chain-habits.preview.emergentagent.com")
 @RequestMapping("/categories")
 @Validated
-@CrossOrigin(origins = "*")
+
 @RequiredArgsConstructor
 public class HabitCategoryController {
     

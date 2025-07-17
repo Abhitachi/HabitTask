@@ -25,6 +25,9 @@ public class HabitCategory {
     @NotBlank(message = "Category name is required")
     private String name;
     
+    @NotBlank(message = "Stack name is required")
+    private String stack;
+
     @NotBlank(message = "Category color is required")
     private String color;
     
@@ -36,8 +39,9 @@ public class HabitCategory {
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
     
-    public HabitCategory(String name, String color, String icon) {
+    public HabitCategory(String stack, String name, String color, String icon) {
         this.id = UUID.randomUUID().toString();
+        this.stack = stack;
         this.name = name;
         this.color = color;
         this.icon = icon;
