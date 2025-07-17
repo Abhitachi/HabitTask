@@ -20,6 +20,7 @@ const Dashboard = ({
 }) => {
   const { toast } = useToast();
   const [draggedHabit, setDraggedHabit] = useState(null);
+  const [showHabitLibrary, setShowHabitLibrary] = useState(false);
 
   const handleDragStart = (e, habit) => {
     setDraggedHabit(habit);
