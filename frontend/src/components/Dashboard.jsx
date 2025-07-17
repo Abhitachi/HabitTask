@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Plus, TrendingUp, Calendar, Target } from 'lucide-react';
 import HabitLibrary from './HabitLibrary';
 import ChainBuilder from './ChainBuilder';
@@ -16,7 +15,8 @@ const Dashboard = ({
   progressData, 
   onSaveStack, 
   onDeleteStack,
-  onToggleComplete 
+  onToggleComplete,
+  onCreateHabit
 }) => {
   const { toast } = useToast();
   const [draggedHabit, setDraggedHabit] = useState(null);
@@ -28,10 +28,6 @@ const Dashboard = ({
 
   const handleSaveStack = (newStack) => {
     onSaveStack(newStack);
-    toast({
-      title: "Stack Created!",
-      description: `"${newStack.name}" has been saved to your habit stacks.`,
-    });
   };
 
   const handleClearStack = () => {
@@ -42,9 +38,11 @@ const Dashboard = ({
   };
 
   const getTotalStacks = () => habitStacks.length;
+  
   const getCompletedStacks = () => habitStacks.filter(stack => 
     stack.habits.every(h => h.completed)
   ).length;
+  
   const getActiveStacks = () => habitStacks.filter(stack => 
     stack.habits.some(h => h.completed) && !stack.habits.every(h => h.completed)
   ).length;
@@ -122,6 +120,7 @@ const Dashboard = ({
               habits={habits}
               categories={categories}
               onDragStart={handleDragStart}
+              onCreateHabit={onCreateHabit}
             />
           </div>
 
