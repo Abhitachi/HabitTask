@@ -4,6 +4,7 @@ com/habitstack/exception/BusinessLogicException.class
 com/habitstack/controller/HabitCategoryController.class
 com/habitstack/model/StackHabit.class
 com/habitstack/HabitStackApplication.class
+com/habitstack/controller/HabitController.class
 com/habitstack/model/StackHabit$StackHabitBuilder.class
 com/habitstack/exception/ResourceNotFoundException.class
 com/habitstack/model/HabitCategory.class
@@ -28,8 +29,8 @@ com/habitstack/service/HabitService.class
 com/habitstack/model/HabitStack$HabitStackBuilder.class
 com/habitstack/model/ProgressData.class
 com/habitstack/config/CorsConfig.class
+com/habitstack/controller/HabitStackController.class
 com/habitstack/exception/BaseException.class
-com/habitstack/config/DataInitializer.class
 com/habitstack/repository/HabitStackRepository.class
 com/habitstack/controller/ProgressDataController.class
 com/habitstack/model/ProgressData$ProgressDataBuilder.class

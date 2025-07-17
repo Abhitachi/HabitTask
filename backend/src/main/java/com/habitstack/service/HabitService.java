@@ -116,16 +116,17 @@ public class HabitService {
         }
     }
     
-    public void deleteHabit(String id) {
+    public boolean deleteHabit(String id) {
         log.info("Deleting habit with ID: {}", id);
         try {
             if (!habitRepository.existsById(id)) {
                 log.warn("Habit not found for deletion with ID: {}", id);
-                throw new ResourceNotFoundException("Habit", id);
+                return false; // Return false instead of throwing exception
             }
             
             habitRepository.deleteById(id);
             log.info("Successfully deleted habit with ID: {}", id);
+            return true;
         } catch (DataAccessException e) {
             log.error("Database error while deleting habit with ID {}: {}", id, e.getMessage(), e);
             throw new DatabaseException("Failed to delete habit", e);

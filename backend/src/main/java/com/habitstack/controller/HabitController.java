@@ -37,14 +37,19 @@ public class HabitController {
         } else {
             habits = habitService.getAllHabits();
         }
-        
+        System.out.println(habits + "habits test");
         return ResponseEntity.ok(habits);
     }
     
-@GetMapping("/{id}")
-public Optional<Habit> getHabitById(@PathVariable String id) {
-    return habitRepository.findById(id);
-}
+    @GetMapping("/{id}")
+    public ResponseEntity<Habit> getHabitById(@PathVariable String id) {
+        try {
+            Habit habit = habitService.getHabitById(id);
+            return ResponseEntity.ok(habit);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
     
     @PostMapping
     public ResponseEntity<Habit> createHabit(@Valid @RequestBody Habit habit) {
@@ -72,7 +77,11 @@ public Optional<Habit> getHabitById(@PathVariable String id) {
     public ResponseEntity<Void> deleteHabit(@PathVariable String id) {
         try {
             boolean deleted = habitService.deleteHabit(id);
-            return deleted ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+            if(deleted){
+                return ResponseEntity.ok().build();
+            }else{
+                return ResponseEntity.notFound().build();
+            }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
