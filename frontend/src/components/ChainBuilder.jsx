@@ -65,11 +65,8 @@ const ChainBuilder = ({ categories, onSaveStack, onClearStack, onCreateHabit }) 
   const handleSave = () => {
     if (stackName.trim() && currentStack.length > 0) {
       const newStack = {
-        id: Date.now().toString(),
         name: stackName,
-        habits: currentStack.map(habit => ({ habitId: habit.id, completed: false })),
-        createdAt: new Date(),
-        lastCompleted: null
+        habits: currentStack.map(habit => ({ habitId: habit.id, completed: false }))
       };
       onSaveStack(newStack);
       setStackName('');
@@ -81,6 +78,36 @@ const ChainBuilder = ({ categories, onSaveStack, onClearStack, onCreateHabit }) 
     setCurrentStack([]);
     setStackName('');
     onClearStack();
+  };
+
+  const handleCreateTask = async (e) => {
+    e.preventDefault();
+    if (!newTask.name || !newTask.category || !newTask.time || !newTask.description) {
+      return;
+    }
+    
+    try {
+      const createdHabit = await onCreateHabit({
+        name: newTask.name,
+        category: newTask.category,
+        time: parseInt(newTask.time),
+        description: newTask.description
+      });
+      
+      // Add the newly created habit to the stack
+      setCurrentStack([...currentStack, createdHabit]);
+      
+      // Reset form
+      setNewTask({ name: '', category: '', time: '', description: '' });
+      setShowAddTaskForm(false);
+    } catch (error) {
+      console.error('Error creating task:', error);
+    }
+  };
+
+  const resetTaskForm = () => {
+    setNewTask({ name: '', category: '', time: '', description: '' });
+    setShowAddTaskForm(false);
   };
 
   return (
