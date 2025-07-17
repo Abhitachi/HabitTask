@@ -134,17 +134,18 @@ const HabitStack = ({ stack, habits, categories, progressData, onToggleComplete,
       {/* Habit Chain */}
       <div className={`transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-70'}`}>
         {stack.habits.map((stackHabit, index) => {
-          const habit = getHabitData(stackHabit.habitId);
+          const habitId = getHabitId(stackHabit);
+          const habit = getHabitData(habitId);
           if (!habit) return null;
           
           return (
-            <div key={`${stackHabit.habitId}-${index}`} className="relative">
+            <div key={`${habitId}-${index}`} className="relative">
               <HabitCard
                 habit={habit}
                 category={getCategoryData(habit.category)}
                 isInStack={true}
                 isCompleted={stackHabit.completed}
-                onToggleComplete={() => onToggleComplete(stack.id, stackHabit.habitId)}
+                onToggleComplete={() => onToggleComplete(stack.id, habitId)}
                 showDragHandle={false}
               />
               
