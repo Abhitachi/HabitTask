@@ -1,6 +1,10 @@
 package com.habitstack.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -12,8 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "habit_stacks")
-
 public class HabitStack {
     @Id
     private String id;
@@ -22,43 +29,24 @@ public class HabitStack {
     private String name;
     
     @NotEmpty(message = "Stack must contain at least one habit")
-    private List<StackHabit> habits;
+    @Builder.Default
+    private List<StackHabit> habits = new ArrayList<>();
     
     @Field("created_at")
     @JsonProperty("created_at")
-    private LocalDateTime createdAt;
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
     
     @Field("last_completed")
     @JsonProperty("lastCompleted")
     private LocalDateTime lastCompleted;
     
-    public HabitStack() {
-        this.id = UUID.randomUUID().toString();
-        this.createdAt = LocalDateTime.now();
-        this.habits = new ArrayList<>();
-    }
-    
     public HabitStack(String name, List<StackHabit> habits) {
-        this();
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.habits = habits != null ? habits : new ArrayList<>();
+        this.createdAt = LocalDateTime.now();
     }
-    
-    // Getters and Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-    
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    
-    public List<StackHabit> getHabits() { return habits; }
-    public void setHabits(List<StackHabit> habits) { this.habits = habits; }
-    
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-    
-    public LocalDateTime getLastCompleted() { return lastCompleted; }
-    public void setLastCompleted(LocalDateTime lastCompleted) { this.lastCompleted = lastCompleted; }
     
     // Helper methods
     public boolean isCompleted() {
