@@ -2,13 +2,23 @@ import React, { useState } from 'react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { Search, Plus } from 'lucide-react';
+import { Search, Plus, X } from 'lucide-react';
 import { Input } from './ui/input';
+import { Label } from './ui/label';
+import { Textarea } from './ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import HabitCard from './HabitCard';
 
-const HabitLibrary = ({ habits, categories, onDragStart }) => {
+const HabitLibrary = ({ habits, categories, onDragStart, onCreateHabit }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [newHabit, setNewHabit] = useState({
+    name: '',
+    category: '',
+    time: '',
+    description: ''
+  });
 
   const filteredHabits = habits.filter(habit => {
     const matchesCategory = selectedCategory === 'all' || habit.category === selectedCategory;
