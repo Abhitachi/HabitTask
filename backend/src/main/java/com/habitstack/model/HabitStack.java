@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Document(collection = "habit_stacks")
+
 public class HabitStack {
     @Id
     private String id;

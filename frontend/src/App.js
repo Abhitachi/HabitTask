@@ -57,10 +57,12 @@ function App() {
   const handleSaveStack = async (newStack) => {
     try {
       const createdStack = await api.stacks.create(newStack);
+      console.log(createdStack, 'Created stack')
       setHabitStacks(prev => [...prev, createdStack]);
       
       // The backend automatically creates progress data, so we need to fetch it
       const progressForStack = await api.progress.get(createdStack.id);
+      console.log(progressForStack, "progress for stack")
       setProgressData(prev => ({
         ...prev,
         [createdStack.id]: progressForStack
