@@ -3,7 +3,10 @@ import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
-import { ArrowDown, Save, Trash2, Plus } from 'lucide-react';
+import { Label } from './ui/label';
+import { Textarea } from './ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { ArrowDown, Save, Trash2, Plus, X } from 'lucide-react';
 import HabitCard from './HabitCard';
 
 const ChainBuilder = ({ categories, onSaveStack, onClearStack }) => {
