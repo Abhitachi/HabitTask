@@ -26,7 +26,7 @@ const HabitLibrary = ({ habits, categories, onDragStart }) => {
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold">Habit Library</h2>
         <Button size="sm" className="gap-2">
-          <Plus className="w-4 h-4" />
+          <Plus className="w-4 h-4"  />
           Add Habit
         </Button>
       </div>
