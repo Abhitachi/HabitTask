@@ -115,22 +115,35 @@ const Dashboard = ({
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Habit Library */}
-          <div className="lg:col-span-1">
-            <HabitLibrary
-              habits={habits}
-              categories={categories}
-              onDragStart={handleDragStart}
-              onCreateHabit={onCreateHabit}
-            />
-          </div>
+          {/* Habit Library - Hidden by default */}
+          {showHabitLibrary && (
+            <div className="lg:col-span-1">
+              <HabitLibrary
+                habits={habits}
+                categories={categories}
+                onDragStart={handleDragStart}
+                onCreateHabit={onCreateHabit}
+              />
+            </div>
+          )}
 
           {/* Chain Builder */}
-          <div className="lg:col-span-1">
+          <div className={showHabitLibrary ? "lg:col-span-1" : "lg:col-span-2"}>
+            <div className="mb-4">
+              <Button
+                variant="outline"
+                onClick={() => setShowHabitLibrary(!showHabitLibrary)}
+                className="w-full justify-center gap-2"
+              >
+                <Plus className="w-4 h-4" />
+                {showHabitLibrary ? 'Hide' : 'Show'} Habit Library
+              </Button>
+            </div>
             <ChainBuilder
               categories={categories}
               onSaveStack={handleSaveStack}
               onClearStack={handleClearStack}
+              onCreateHabit={onCreateHabit}
             />
           </div>
 
