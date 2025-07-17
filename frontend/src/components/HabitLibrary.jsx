@@ -143,7 +143,6 @@ const HabitLibrary = ({ habits, categories, onDragStart, onCreateHabit }) => {
           </form>
         </Card>
       )}
-      </div>
 
       {/* Search */}
       <div className="relative mb-4">
