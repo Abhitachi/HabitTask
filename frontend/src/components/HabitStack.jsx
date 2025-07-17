@@ -55,6 +55,11 @@ const HabitStack = ({ stack, habits, categories, progressData, onToggleComplete,
     });
   };
 
+  const getHabitId = (stackHabit) => {
+    // Handle both frontend format (habitId) and backend format (habit_id)
+    return stackHabit.habitId || stackHabit.habit_id;
+  };
+
   const streakInfo = getStreakInfo();
   const completionPercentage = getCompletionPercentage();
 
