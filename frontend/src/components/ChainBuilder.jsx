@@ -118,6 +118,15 @@ const ChainBuilder = ({ categories, onSaveStack, onClearStack, onCreateHabit }) 
           <Button
             variant="outline"
             size="sm"
+            onClick={() => setShowAddTaskForm(true)}
+            className="gap-1"
+          >
+            <Plus className="w-4 h-4" />
+            Add Task
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
             onClick={handleClear}
             disabled={currentStack.length === 0}
           >
@@ -144,6 +153,83 @@ const ChainBuilder = ({ categories, onSaveStack, onClearStack, onCreateHabit }) 
           className="w-full"
         />
       </div>
+
+      {/* Add Task Form */}
+      {showAddTaskForm && (
+        <Card className="p-4 mb-4 border-2 border-green-200 bg-green-50">
+          <form onSubmit={handleCreateTask} className="space-y-3">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="font-semibold">Add New Task</h3>
+              <Button type="button" variant="ghost" size="sm" onClick={resetTaskForm}>
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+            
+            <div>
+              <Label htmlFor="task-name">Task Name</Label>
+              <Input
+                id="task-name"
+                placeholder="e.g., Morning Workout"
+                value={newTask.name}
+                onChange={(e) => setNewTask({...newTask, name: e.target.value})}
+                required
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="task-category">Category</Label>
+              <Select value={newTask.category} onValueChange={(value) => setNewTask({...newTask, category: value})}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map(category => (
+                    <SelectItem key={category.id} value={category.id}>
+                      <span className="flex items-center gap-2">
+                        {category.icon} {category.name}
+                      </span>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div>
+              <Label htmlFor="task-time">Time (minutes)</Label>
+              <Input
+                id="task-time"
+                type="number"
+                placeholder="e.g., 15"
+                value={newTask.time}
+                onChange={(e) => setNewTask({...newTask, time: e.target.value})}
+                min="1"
+                required
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="task-description">Description</Label>
+              <Textarea
+                id="task-description"
+                placeholder="Brief description of the task"
+                value={newTask.description}
+                onChange={(e) => setNewTask({...newTask, description: e.target.value})}
+                rows={2}
+                required
+              />
+            </div>
+            
+            <div className="flex gap-2">
+              <Button type="submit" size="sm" className="flex-1">
+                Add to Stack
+              </Button>
+              <Button type="button" variant="outline" size="sm" onClick={resetTaskForm}>
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </Card>
+      )}
 
       {/* Drop Zone */}
       <div
