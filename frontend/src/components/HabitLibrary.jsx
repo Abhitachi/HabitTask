@@ -31,14 +31,118 @@ const HabitLibrary = ({ habits, categories, onDragStart, onCreateHabit }) => {
     return categories.find(cat => cat.id === categoryId) || { color: '#999', icon: '📋' };
   };
 
+  const handleCreateHabit = async (e) => {
+    e.preventDefault();
+    if (!newHabit.name || !newHabit.category || !newHabit.time || !newHabit.description) {
+      return;
+    }
+    
+    try {
+      await onCreateHabit({
+        name: newHabit.name,
+        category: newHabit.category,
+        time: parseInt(newHabit.time),
+        description: newHabit.description
+      });
+      
+      setNewHabit({ name: '', category: '', time: '', description: '' });
+      setShowCreateForm(false);
+    } catch (error) {
+      console.error('Error creating habit:', error);
+    }
+  };
+
+  const resetForm = () => {
+    setNewHabit({ name: '', category: '', time: '', description: '' });
+    setShowCreateForm(false);
+  };
+
   return (
     <Card className="p-6 h-full overflow-hidden flex flex-col">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold">Habit Library</h2>
-        <Button size="sm" className="gap-2">
-          <Plus className="w-4 h-4"  />
+        <Button size="sm" className="gap-2" onClick={() => setShowCreateForm(true)}>
+          <Plus className="w-4 h-4" />
           Add Habit
         </Button>
+      </div>
+
+      {/* Create Habit Form */}
+      {showCreateForm && (
+        <Card className="p-4 mb-4 border-2 border-blue-200 bg-blue-50">
+          <form onSubmit={handleCreateHabit} className="space-y-3">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="font-semibold">Create New Habit</h3>
+              <Button type="button" variant="ghost" size="sm" onClick={resetForm}>
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+            
+            <div>
+              <Label htmlFor="habit-name">Habit Name</Label>
+              <Input
+                id="habit-name"
+                placeholder="e.g., Morning Meditation"
+                value={newHabit.name}
+                onChange={(e) => setNewHabit({...newHabit, name: e.target.value})}
+                required
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="habit-category">Category</Label>
+              <Select value={newHabit.category} onValueChange={(value) => setNewHabit({...newHabit, category: value})}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map(category => (
+                    <SelectItem key={category.id} value={category.id}>
+                      <span className="flex items-center gap-2">
+                        {category.icon} {category.name}
+                      </span>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div>
+              <Label htmlFor="habit-time">Time (minutes)</Label>
+              <Input
+                id="habit-time"
+                type="number"
+                placeholder="e.g., 10"
+                value={newHabit.time}
+                onChange={(e) => setNewHabit({...newHabit, time: e.target.value})}
+                min="1"
+                required
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="habit-description">Description</Label>
+              <Textarea
+                id="habit-description"
+                placeholder="Brief description of the habit"
+                value={newHabit.description}
+                onChange={(e) => setNewHabit({...newHabit, description: e.target.value})}
+                rows={2}
+                required
+              />
+            </div>
+            
+            <div className="flex gap-2">
+              <Button type="submit" size="sm" className="flex-1">
+                Create Habit
+              </Button>
+              <Button type="button" variant="outline" size="sm" onClick={resetForm}>
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </Card>
+      )}
       </div>
 
       {/* Search */}
