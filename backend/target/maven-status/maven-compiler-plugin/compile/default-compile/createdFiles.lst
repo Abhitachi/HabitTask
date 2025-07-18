@@ -31,6 +31,7 @@ com/habitstack/model/ProgressData.class
 com/habitstack/config/CorsConfig.class
 com/habitstack/controller/HabitStackController.class
 com/habitstack/exception/BaseException.class
+com/habitstack/config/DataInitializer.class
 com/habitstack/repository/HabitStackRepository.class
 com/habitstack/controller/ProgressDataController.class
 com/habitstack/model/ProgressData$ProgressDataBuilder.class

@@ -50,11 +50,14 @@ const Dashboard = ({
 
   const getOverallProgress = () => {
     if (habitStacks.length === 0) return 0;
-    const totalHabits = habitStacks.reduce((sum, stack) => sum + stack.habits.length, 0);
+    const totalHabits = habitStacks.reduce((sum, stack) => sum + stack?.habits?.length, 0);
+    console.log(totalHabits,'habits');
     const completedHabits = habitStacks.reduce((sum, stack) => 
-      sum + stack.habits.filter(h => h.completed).length, 0
+      (sum + stack?.habits?.filter(h => h?.completed).length, 0)
     );
-    return totalHabits > 0 ? (completedHabits / totalHabits) * 100 : 0;
+    console.log(habitStacks,'habitStacks', completedHabits, "compltedHabits")
+    console.log(totalHabits, completedHabits / totalHabits, "stack")
+    return totalHabits > 0 ? parseInt((completedHabits / totalHabits)) * 100 : 0;
   };
 
   return (

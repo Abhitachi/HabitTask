@@ -77,6 +77,8 @@ public class HabitStackController {
         try {
             String stackId = request.get("stack_id");
             String habitId = request.get("habit_id");
+
+            System.out.println(stackId  + " stackid" + habitId + " habitId");
             
             HabitStack updatedStack = stackService.toggleHabitCompletion(stackId, habitId);
             

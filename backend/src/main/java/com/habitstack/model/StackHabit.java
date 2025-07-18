@@ -1,5 +1,5 @@
 package com.habitstack.model;
-
+import jakarta.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotBlank;
 
 @Data
+@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

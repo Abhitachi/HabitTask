@@ -25,7 +25,7 @@ const HabitStack = ({ stack, habits, categories, progressData, onToggleComplete,
 
   const getCompletionPercentage = () => {
     const completed = stack.habits.filter(h => h.completed).length;
-    return (completed / stack.habits.length) * 100;
+    return parseInt(completed / stack.habits.length) * 100;
   };
 
   const getTotalTime = () => {
@@ -62,6 +62,9 @@ const HabitStack = ({ stack, habits, categories, progressData, onToggleComplete,
 
   const streakInfo = getStreakInfo();
   const completionPercentage = getCompletionPercentage();
+
+  console.log(streakInfo,'streakInfo');
+  console.log(completionPercentage,'CompletionPercentage');
 
   return (
     <Card className={`p-6 transition-all duration-300 ${isActive ? 'ring-2 ring-blue-400 shadow-lg' : ''}`}>
@@ -122,7 +125,11 @@ const HabitStack = ({ stack, habits, categories, progressData, onToggleComplete,
           <div className="text-xs text-gray-600">Best Streak</div>
         </div>
         <div className="text-center">
-          <div className="text-lg font-bold text-purple-600">{Math.round(streakInfo.completionRate * 100)}%</div>
+          <div className="text-lg font-bold text-purple-600">
+            {streakInfo && !isNaN(streakInfo.completionRate)
+    ? `${Math.round(streakInfo.completionRate * 100)}%`
+    : '0%'}
+          </div>
           <div className="text-xs text-gray-600">Success Rate</div>
         </div>
         <div className="text-center">

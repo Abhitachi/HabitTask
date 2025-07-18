@@ -9,7 +9,7 @@ const HabitCard = ({
   isDragging = false, 
   isInStack = false,
   isCompleted = false,
-  onToggleComplete = null,
+  onToggleComplete,
   showDragHandle = true
 }) => {
   const categoryData = category || { color: '#999', icon: '📋' };
@@ -56,7 +56,7 @@ const HabitCard = ({
           
           {isInStack && onToggleComplete && (
             <button
-              onClick={onToggleComplete}
+              onClick={() => onToggleComplete()}
               className={`
                 w-6 h-6 rounded-full border-2 flex items-center justify-center
                 transition-all duration-200 hover:scale-110

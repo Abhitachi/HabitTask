@@ -1,3 +1,4 @@
+
 # Server Configuration
 server:
   port: 8001
@@ -10,8 +11,6 @@ spring:
     mongodb:
       uri: ${MONGO_URL:mongodb://localhost:27017}
       database: ${DB_NAME:habitstack}
-  
-  # Jackson Configuration
   jackson:
     default-property-inclusion: non_null
     serialization:

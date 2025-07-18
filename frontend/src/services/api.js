@@ -95,6 +95,7 @@ export const api = {
       stack_id: stackId,
       habit_id: habitId,
     });
+    console.log(response,"response");
     return response.data;
   },
 };
